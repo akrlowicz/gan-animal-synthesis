@@ -13,6 +13,7 @@ When we take a look at https://thisxdoesnotexist.com/, it seems like GANs can ge
 
 Far more developed work was published by MIT Media Lab as "Meet the ganimals" project. [[3]](#3) The researchers used BigGAN to generate novel, hybrid animals and released them to the public to react to their aesthetic. We can find a hybrid of golden retriver and goldfish or pug mixed with starfish.
 
+Since already solutions are implemented for this kind of task, but there is room for improvement and playing around, this would be *Bring your own method* kind of project.
 
 ## Dataset 
 Few datasets that can be tested in this experiment:
