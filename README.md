@@ -1,4 +1,4 @@
-# TL;DR
+# TL;DR - Hacking phase
 I used DCGAN, WGAN-GP, cGAN and cWGAN-GP to generate the faces of mixed animals.
 I tested it on three datasets: LHI, AFHQ and AFD. This was evaluated qualitatively by analyzing synthetic images. I explored interpolation on latent space to mix images together as well. 
 You can find model implementation in consecutive python scripts. Data preparation is in notebook [Ganimals - Dataset loading and processing.ipynb](Ganimals%20-%20Dataset%20loading%20and%20processing.ipynb)
