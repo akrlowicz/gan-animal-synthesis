@@ -1,3 +1,10 @@
+# gan-animal-synthesis
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://gan-animal-synthesis.streamlit.app/)
+
+Access result from this repo on streamlit web app by clicking on the badge above or directly via the link https://gan-animal-synthesis.streamlit.app/.
+
+
 # TL;DR - Hacking phase
 I used DCGAN, WGAN-GP, cGAN and cWGAN-GP to generate the faces of mixed animals.
 I tested it on three datasets: LHI, AFHQ and AFD. This was evaluated qualitatively by analyzing synthetic images. I explored interpolation on latent space to mix images together as well. 
