@@ -29,7 +29,7 @@ def load(model_name):
     # wgan_afd : generator_model2_200.h5
     # dcgan_afhq : generator_model_100.h5
 
-    path = f"/ganimals/{model_name}/generator_model_200.h5"
+    path = f"{CWD}/ganimals/{model_name}/generator_model_200.h5"
 
     if model_name == 'wgan_afd': path = path.replace('model', 'model2')
     elif model_name == 'dcgan_afd' : path = path.replace('200', '150')
