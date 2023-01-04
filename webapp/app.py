@@ -29,7 +29,7 @@ def load(model_name):
     # wgan_afd : generator_model2_200.h5
     # dcgan_afhq : generator_model_100.h5
 
-    path = f"{CWD}/../ganimals/{model_name}/generator_model_200.h5"
+    path = f"/ganimals/{model_name}/generator_model_200.h5"
 
     if model_name == 'wgan_afd': path = path.replace('model', 'model2')
     elif model_name == 'dcgan_afd' : path = path.replace('200', '150')
@@ -187,7 +187,7 @@ if not CONDITIONAL:
 
 else:
     # load classes dict regardless (for displaying in drop down select box)
-    classes_dict = load_classes(CWD + '/../ganimals/afd_class_dict.npz')
+    classes_dict = load_classes(CWD + '/ganimals/afd_class_dict.npz')
     classes_list = [str(values) + ') ' + keys for keys, values in zip(classes_dict.keys(), classes_dict.values())]
     NUM_CLASSES = len(classes_list)
 
