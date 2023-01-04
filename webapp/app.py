@@ -5,6 +5,8 @@ from keras.utils import to_categorical
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import urllib.request
+import subprocess
 
 # PAGE CONFIG
 st.set_page_config(page_title='GANimals', page_icon=':tiger:', layout="centered")
@@ -18,6 +20,7 @@ NUM_CLASSES = 0
 
 # UTIL FUNCTIONS
 @st.cache(allow_output_mutation=True)
+# @st.experimental_singleton
 def load(model_name):
 
     # cond_gan_afd : generator_model_200.h5
@@ -26,11 +29,18 @@ def load(model_name):
     # wgan_afd : generator_model2_200.h5
     # dcgan_afhq : generator_model_100.h5
 
-    path = CWD + f"/ganimals/{model_name}/generator_model_200.h5"
+    path = f"{CWD}/../ganimals/{model_name}/generator_model_200.h5"
 
     if model_name == 'wgan_afd': path = path.replace('model', 'model2')
     elif model_name == 'dcgan_afd' : path = path.replace('200', '150')
     elif model_name == 'dcgan_afhq': path = path.replace('200', '100')
+
+    # alternative way of accessing the models from github url
+    # if not os.path.isfile(model_name + "_model.h5"):
+    #     url_to_model = f'https://github.com/akrlowicz/gan-animal-synthesis/blob/main/ganimals/{path}?raw=true'
+    #     st.write(url_to_model)
+    #     urllib.request.urlretrieve(url_to_model, model_name + "_model.h5")
+
 
     generator = load_model(path)
 
@@ -146,7 +156,7 @@ else:
 st.sidebar.write("Please note that current version only supports DCGAN for AFHQ dataset.")
 st.sidebar.write("****")
 
-st.write(CWD)
+
 # ***************   MODEL PICK   ***************
 model_name = st.sidebar.selectbox('Choose the model', model_options)
 model_name = model_name_format(model_name, dataset_name)
@@ -177,9 +187,9 @@ if not CONDITIONAL:
 
 else:
     # load classes dict regardless (for displaying in drop down select box)
-    classes_dict = load_classes(CWD + '/ganimals/afd_class_dict.npz')
+    classes_dict = load_classes(CWD + '/../ganimals/afd_class_dict.npz')
     classes_list = [str(values) + ') ' + keys for keys, values in zip(classes_dict.keys(), classes_dict.values())]
-    NUM_CLASSES = len(classes_dict.keys())
+    NUM_CLASSES = len(classes_list)
 
     # ***************   INTERPOLATION   ***************
     st.subheader(':point_right: Interpolation of images on conditional model')
