@@ -4,14 +4,17 @@ from keras.models import load_model
 from keras.utils import to_categorical
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 # PAGE CONFIG
 st.set_page_config(page_title='GANimals', page_icon=':tiger:', layout="centered")
 
 # GLOBAL VARS
+CWD = os.getcwd()
 LATENT_DIM = 100
 CONDITIONAL = False
 ONEHOT = False
+NUM_CLASSES = 0
 
 # UTIL FUNCTIONS
 @st.cache(allow_output_mutation=True)
@@ -23,7 +26,7 @@ def load(model_name):
     # wgan_afd : generator_model2_200.h5
     # dcgan_afhq : generator_model_100.h5
 
-    path = f"../ganimals/{model_name}/generator_model_200.h5"
+    path = CWD + f"/ganimals/{model_name}/generator_model_200.h5"
 
     if model_name == 'wgan_afd': path = path.replace('model', 'model2')
     elif model_name == 'dcgan_afd' : path = path.replace('200', '150')
@@ -123,10 +126,10 @@ def display_interpolated(generator, num_interpolation, n_steps=10, yA=None, yB=N
 def model_name_format(model_name, dataset_name):
     return model_name.replace('c', 'cond_').replace('-GP', '').lower() + '_' + dataset_name.lower()
 
+
 # ***************   LOADING/INIT   ***************
 st.title("What's that GANimal? :dog: :cat: :tiger: :cow:")
 st.write('Demnostration of hybrid animal faces synthesis via Generative Adverserial Networks')
-
 
 st.sidebar.title("Menu")
 st.sidebar.write("****")
@@ -143,6 +146,7 @@ else:
 st.sidebar.write("Please note that current version only supports DCGAN for AFHQ dataset.")
 st.sidebar.write("****")
 
+st.write(CWD)
 # ***************   MODEL PICK   ***************
 model_name = st.sidebar.selectbox('Choose the model', model_options)
 model_name = model_name_format(model_name, dataset_name)
@@ -156,11 +160,6 @@ st.sidebar.write("If the choice of the model is DCGAN or WGAN-GP, the synthesize
 # determine if we use conditional models and if the class is one hot encoded
 CONDITIONAL = model_name.split('_')[0] == 'cond'
 ONEHOT = model_name.split('_')[1] == 'gan'
-
-# load classes dict regardless (for displaying in drop down select box)
-classes_dict = load_classes('../ganimals/afd_class_dict.npz')
-classes_list = [str(values) + ') '+ keys for keys, values in zip(classes_dict.keys(), classes_dict.values())]
-NUM_CLASSES = len(classes_dict.keys())
 
 
 if not CONDITIONAL:
@@ -177,6 +176,11 @@ if not CONDITIONAL:
     st.write(fig)
 
 else:
+    # load classes dict regardless (for displaying in drop down select box)
+    classes_dict = load_classes(CWD + '/ganimals/afd_class_dict.npz')
+    classes_list = [str(values) + ') ' + keys for keys, values in zip(classes_dict.keys(), classes_dict.values())]
+    NUM_CLASSES = len(classes_dict.keys())
+
     # ***************   INTERPOLATION   ***************
     st.subheader(':point_right: Interpolation of images on conditional model')
 
