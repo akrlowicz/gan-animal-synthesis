@@ -85,7 +85,7 @@ def plot_generated(examples):
 
     return fig
 
-@st.cache(show_spinner=False)
+# @st.cache(show_spinner=False)
 def interpolate_points(p1, p2, n_steps=10):
     # interpolate ratios between the points
     ratios = np.linspace(0, 1, num=n_steps)
@@ -94,7 +94,7 @@ def interpolate_points(p1, p2, n_steps=10):
     return np.asarray(vectors)
 
 
-@st.cache(show_spinner=False)
+# @st.cache(show_spinner=False)
 def interpolate_class(generator, first_number, second_number, n_steps=10, latent_dim=LATENT_DIM, onehot_encoded=True):
     # sample noise for the interpolation.
     interpolation_noise = tf.random.normal(shape=(n_steps, latent_dim))
